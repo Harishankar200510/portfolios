@@ -397,43 +397,70 @@ based access control.</p>
               <i class="bi bi-envelope flex-shrink-0"></i>
               <div>
                 <h3>Email</h3>
-                <p><a href="harishankarvsk2005@gmail.com">harishankarvsk2005@gmail.com</a></p>
+                <p><a href="mailto:harishankarvsk2005@gmail.com">harishankarvsk2005@gmail.com</a></p>
               </div>
             </div><!-- End Info Item -->
 
           </div>
 
-          <div class="col-lg-8">
-            <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
-              <div class="row gy-4">
+          <div class="col-lg-7">
+  <form id="contact-form" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+    <div class="row gy-4">
 
-                <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
-                </div>
+      <div class="col-md-6">
+        <label for="name-field" class="pb-2">Your Name</label>
+        <input type="text" name="name" id="name-field" class="form-control" required>
+      </div>
 
-                <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
-                </div>
+      <div class="col-md-6">
+        <label for="email-field" class="pb-2">Your Email</label>
+        <input type="email" class="form-control" name="email" id="email-field" required>
+      </div>
 
-                <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
-                </div>
+      <div class="col-md-12">
+        <label for="subject-field" class="pb-2">Subject</label>
+        <input type="text" class="form-control" name="subject" id="subject-field" required>
+      </div>
 
-                <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
-                </div>
+      <div class="col-md-12">
+        <label for="message-field" class="pb-2">Message</label>
+        <textarea class="form-control" name="message" rows="10" id="message-field" required></textarea>
+      </div>
 
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
+      <div class="col-md-12 text-center">
+        <div class="loading">Loading</div>
+        
+        <div class="sent-message">Your message has been sent. Thank you!</div>
 
-                  <button type="submit">Send Message</button>
-                </div>
+        <button type="submit">Send Message</button>
+      </div>
 
-              </div>
-            </form>
-          </div><!-- End Contact Form -->
+    </div>
+  </form>
+</div>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("EAXx4CE9HhiGErGpi"); // replace with your EmailJS public key
+  })();
+
+  document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+    document.querySelector(".loading").style.display = "block";
+
+    emailjs.sendForm("service_zaer18i", "template_sfvv6cd", this)
+      .then(() => {
+        document.querySelector(".loading").style.display = "none";
+        document.querySelector(".sent-message").style.display = "block";
+      }, (error) => {
+        document.querySelector(".loading").style.display = "none";
+        document.querySelector(".error-message").innerHTML = "Error: " + error.text;
+        document.querySelector(".error-message").style.display = "block";
+      });
+  });
+</script>
 
         </div>
 
@@ -486,7 +513,7 @@ based access control.</p>
 
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
-
+  <script type="text/javascript" src="https://cdn.emailjs.com/sdk/3.2/email.min.js"></script>
 </body>
 
 </html>
